@@ -6,8 +6,10 @@ module.exports = {
   env: {
     node: true,
   },
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 2020
+    ecmaVersion: 2020,
+    project: './tsconfig.json',
   },
   plugins: ['rulesdir'],
   extends: [
