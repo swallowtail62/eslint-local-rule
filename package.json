@@ -11,7 +11,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@tsconfig/node14": "^1.0.0",
     "eslint": "^7.15.0",
-    "eslint-plugin-rulesdir": "^0.1.0"
+    "eslint-plugin-rulesdir": "^0.1.0",
+    "typescript": "^4.1.3"
   }
 }
