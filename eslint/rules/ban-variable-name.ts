@@ -1,3 +1,5 @@
+import { TSESTree, AST_NODE_TYPES } from "@typescript-eslint/types";
+
 module.exports = {
   meta: {
     type: "suggestion",
@@ -22,13 +24,18 @@ module.exports = {
   },
   create(context) {
     const [option] = context.options;
-    const bannedWords = option ? option.words : [];
+    const bannedWords = option?.words ?? [];
     return {
-      VariableDeclarator: (node) => {
-        if (bannedWords.includes(node.id.name)) {
+      VariableDeclarator: (node: TSESTree.VariableDeclarator) => {
+        const { id } = node as { id: TSESTree.Identifier };
+        if (
+          bannedWords.includes(id.name) &&
+          id.typeAnnotation?.typeAnnotation.type ===
+            AST_NODE_TYPES.TSStringKeyword
+        ) {
           context.report({
             node,
-            message: `The keyword ${node.id.name} is banned to be used as a variable name`,
+            message: `The keyword ${id.name} is banned to be used as a variable name`,
           });
         }
       },
